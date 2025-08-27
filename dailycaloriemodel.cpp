@@ -37,3 +37,5 @@ void DailyCalorieModel::addDailyEntry(const DailyTracker &entry)
     m_dailyCalories.push_back(entry);
     endInsertRows();
 }
+
+

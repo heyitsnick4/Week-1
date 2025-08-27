@@ -14,7 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    retrieveFile();
+    retrieveFileFood();
+    retrieveFileDate();
 
     foodModel = new FoodItemModel(this);
     foodModel->setFoodItems(foodItems);
@@ -33,7 +34,28 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButtonSubtract, &QPushButton::clicked, this, &MainWindow::subtractCalorieCount);
 }
 
-void MainWindow::retrieveFile()
+void MainWindow::retrieveFileDate()
+{
+    fstream inFile;
+
+    inFile.open("calorieDayTracker.txt");
+
+    if(inFile.fail())
+    {
+        cout << "Failed to open file for reading." << endl;
+        return;
+    }
+
+    DailyTracker day;
+    while (inFile >> day.date >> day.calorieCount) {
+        cout << "Read daily entry: " << day.date << " " << day.calorieCount << endl; // ← DEBUG
+        dailyItems.push_back(day);
+    }
+
+    inFile.close();
+}
+
+void MainWindow::retrieveFileFood()
 {
     ifstream inFile;
 
@@ -49,22 +71,6 @@ void MainWindow::retrieveFile()
     while(inFile >> item.name >> item.calories)
     {
         foodItems.push_back(item);
-    }
-
-    inFile.close();
-
-    inFile.open("FoodItems.txt");
-
-    if(inFile.fail())
-    {
-        cout << "Failed to open file for reading." << endl;
-        return;
-    }
-
-    DailyTracker day;
-    while(inFile >> day.date >> day.calorieCount)
-    {
-        dailyItems.push_back(day);
     }
 
     inFile.close();
@@ -195,19 +201,17 @@ void MainWindow::subtractCalorieCount()
 
 void MainWindow::updateDate()
 {
-    ofstream outFile;
+    std::ofstream outFile("calorieDayTracker.txt");
 
-    outFile.open("calorieDayTracker.txt");
-
-    if(outFile.fail())
+    if (outFile.fail())
     {
-        cout << "Failed to open file for writing." << endl;
+        std::cout << "Failed to open file for writing." << std::endl;
         return;
     }
 
-    for (auto &item : foodItems)
+    for (const auto &day : dailyItems)
     {
-        outFile << item.name << " " << item.calories << endl;
+        outFile << day.date << " " << day.calorieCount << std::endl;
     }
 
     outFile.close();
@@ -242,4 +246,3 @@ void MainWindow::on_B_home_clicked()
 {
     ui ->stackedWidget->setCurrentIndex(0);
 }
-

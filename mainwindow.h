@@ -18,14 +18,15 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-int main();
-void askUser();
-void addFoodItem();
-void removeFoodItem();
-void removeCalories();
-void calculateCalories();
-void retrieveFile();
-void updateFile();
+// int main();
+// void askUser();
+// void addFoodItem();
+// void removeFoodItem();
+// void removeCalories();
+// void calculateCalories();
+// void retrieveFileFood();
+// void updateFile();
+// void retrieveFileDate();
 
 extern int currentCaloriesCount;
 
@@ -37,7 +38,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void retrieveFile();
+    void retrieveFileDate();
+    void retrieveFileFood();
     void updateFile();
     void saveFoodItem();
     void removeFoodItem();
@@ -57,6 +59,8 @@ private slots:
     void on_B_exit_clicked();
 
     void on_B_home_clicked();
+
+    void on_dailyTrackerList_indexesMoved(const QModelIndexList &indexes);
 
 private:
     Ui::MainWindow *ui;
