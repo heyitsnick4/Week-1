@@ -1,4 +1,4 @@
-C:/Users/nickc/Desktop/Development/QT/CalorieTracker/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CalorieTracker_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/nickc/Desktop/Development/QT/CalorieTracker/mainwindow.h \
+C:/Users/nickc/Desktop/Development/QT/CalorieTracker/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CalorieTracker_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/nickc/Desktop/Development/Week-1/mainwindow.h \
   C:/Users/nickc/Desktop/Development/QT/CalorieTracker/build/Desktop_Qt_6_9_2_MinGW_64_bit-Debug/CalorieTracker_autogen/moc_predefs.h \
   C:/Qt/6.9.2/mingw_64/include/QtCore/QAbstractListModel \
   C:/Qt/6.9.2/mingw_64/include/QtCore/QModelIndex \
@@ -393,6 +393,6 @@ C:/Users/nickc/Desktop/Development/QT/CalorieTracker/build/Desktop_Qt_6_9_2_MinG
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
-  C:/Users/nickc/Desktop/Development/QT/CalorieTracker/dailycaloriemodel.h \
-  C:/Users/nickc/Desktop/Development/QT/CalorieTracker/foodItems.h \
-  C:/Users/nickc/Desktop/Development/QT/CalorieTracker/fooditemmodel.h
+  C:/Users/nickc/Desktop/Development/Week-1/dailycaloriemodel.h \
+  C:/Users/nickc/Desktop/Development/Week-1/foodItems.h \
+  C:/Users/nickc/Desktop/Development/Week-1/fooditemmodel.h

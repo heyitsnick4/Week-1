@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButtonRemove, &QPushButton::clicked, this, &MainWindow::removeFoodItem);
     connect(ui->pushButtonAdd, &QPushButton::clicked, this, &MainWindow::addCalorieCount);
     connect(ui->pushButtonSubtract, &QPushButton::clicked, this, &MainWindow::subtractCalorieCount);
+    connect(ui->pushButtonAddDate, &QPushButton::clicked, this, &MainWindow::saveFoodDate);
+    connect(ui->pushButtonRemvoeDate, &QPushButton::clicked, this, &MainWindow::removeDate);
 }
 
 void MainWindow::retrieveFileDate()
@@ -139,7 +141,7 @@ void MainWindow::saveFoodItem() {
     foodItems.push_back(item);
     foodModel->addFoodItem(item);
 
-    updateFileDate();
+    updateFileFood();
 
     ui->lineEditName->clear();
     ui->lineEditCalories->clear();
@@ -164,7 +166,7 @@ void MainWindow::removeFoodItem()
 
     foodModel->removeItemAt(row);
 
-    updateFileDate();
+    updateFileFood();
 }
 
 void FoodItemModel::removeItemAt(int row) {
@@ -219,24 +221,6 @@ void MainWindow::subtractCalorieCount()
     ui->caloriesTotalText->setText("Current Count: " + QString::number(currentCalorieCount));
 }
 
-void MainWindow::updateDate()
-{
-    std::ofstream outFile("calorieDayTracker.txt");
-
-    if (outFile.fail())
-    {
-        std::cout << "Failed to open file for writing." << std::endl;
-        return;
-    }
-
-    for (const auto &day : dailyItems)
-    {
-        outFile << day.date << " " << day.calorieCount << std::endl;
-    }
-
-    outFile.close();
-}
-
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -265,4 +249,67 @@ void MainWindow::on_B_exit_clicked()
 void MainWindow::on_B_home_clicked()
 {
     ui ->stackedWidget->setCurrentIndex(0);
+}
+
+//New Stuff
+
+void MainWindow::saveFoodDate() {
+    QDate date = ui->dateEdit->date();
+    QString caloriesStr = ui->lineEditDailyCalories->text();
+
+    if (caloriesStr.isEmpty()) {
+        QMessageBox::warning(this, "Input Error", "Please fill in daily calorie amount.");
+        return;
+    }
+
+    bool ok;
+    int calories = caloriesStr.toInt(&ok);
+    if (!ok || calories < 0) {
+        QMessageBox::warning(this, "Input Error", "Please enter a valid number for calories.");
+        return;
+    }
+
+    DailyTracker item;
+    item.date = date.toString("dd-MM-yyyy").toStdString();
+    item.calorieCount = calories;
+
+    dailyItems.push_back(item);
+    dailyModel->addDailyEntry(item);
+
+    updateFileDate();
+
+    ui->lineEditDailyCalories->clear();
+}
+
+void MainWindow::removeDate()
+{
+    QModelIndex selectedIndex = ui->dailyTrackerList->currentIndex();
+
+    if(!selectedIndex.isValid())
+    {
+        QMessageBox::warning(this, "Removal Error", "Please select a valid input");
+        return;
+    }
+
+    int row = selectedIndex.row();
+
+    if (row >= 0 && row < static_cast<int>(dailyItems.size()))
+    {
+        dailyItems.erase(dailyItems.begin() + row);
+    }
+
+    dailyModel->removeItemAt(row);
+
+    updateFileDate();
+}
+
+void DailyCalorieModel::removeItemAt(int row) {
+    if (row < 0 || row >= static_cast<int>(m_dailyCalories.size()))
+    {
+        return;
+    }
+
+    beginRemoveRows(QModelIndex(), row, row);
+    m_dailyCalories.erase(m_dailyCalories.begin() + row);
+    endRemoveRows();
 }

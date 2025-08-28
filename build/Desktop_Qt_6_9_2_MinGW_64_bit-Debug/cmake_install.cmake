@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/nickc/Desktop/Development/QT/CalorieTracker
+# Install script for directory: C:/Users/nickc/Desktop/Development/Week-1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

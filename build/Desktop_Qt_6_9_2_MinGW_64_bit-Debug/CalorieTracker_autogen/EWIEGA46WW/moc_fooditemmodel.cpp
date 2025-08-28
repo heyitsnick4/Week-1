@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../../fooditemmodel.h"
+#include "../../../../../../Week-1/fooditemmodel.h"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>

@@ -18,16 +18,6 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-// int main();
-// void askUser();
-// void addFoodItem();
-// void removeFoodItem();
-// void removeCalories();
-// void calculateCalories();
-// void retrieveFileFood();
-// void updateFile();
-// void retrieveFileDate();
-
 extern int currentCaloriesCount;
 
 class MainWindow : public QMainWindow
@@ -38,16 +28,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void retrieveFileDate();
+
     void retrieveFileFood();
     void updateFileFood();
     void saveFoodItem();
     void removeFoodItem();
+
+    void retrieveFileDate();
     void updateFileDate();
+    void saveFoodDate();
+    void removeDate();
+
 
     void addCalorieCount();
     void subtractCalorieCount();
-    void updateDate();
 
 private slots:
 

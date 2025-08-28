@@ -18,6 +18,7 @@ public:
     void setDailyCalories(const std::vector<DailyTracker> &entries);
     void addDailyEntry(const DailyTracker &entry);
 
+    void removeItemAt(int row);
 private:
     std::vector<DailyTracker> m_dailyCalories;
 };
