@@ -14,10 +14,8 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-
     void setFoodItems(const std::vector<FoodItem> &items);
     void addFoodItem(const FoodItem &item);
-
     void removeItemAt(int row);
 
 private:

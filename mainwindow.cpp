@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     retrieveFileFood();
     retrieveFileDate();
+    retrieveCurrentCalorie();
 
     foodModel = new FoodItemModel(this);
     foodModel->setFoodItems(foodItems);
@@ -195,6 +196,8 @@ void MainWindow::addCalorieCount()
     currentCalorieCount += foodItems[row].calories;
 
     ui->caloriesTotalText->setText("Current Count: " + QString::number(currentCalorieCount));
+
+    updateCurrentCalorie();
 }
 
 void MainWindow::subtractCalorieCount()
@@ -219,6 +222,8 @@ void MainWindow::subtractCalorieCount()
     }
 
     ui->caloriesTotalText->setText("Current Count: " + QString::number(currentCalorieCount));
+
+    updateCurrentCalorie();
 }
 
 MainWindow::~MainWindow()
@@ -312,4 +317,38 @@ void DailyCalorieModel::removeItemAt(int row) {
     beginRemoveRows(QModelIndex(), row, row);
     m_dailyCalories.erase(m_dailyCalories.begin() + row);
     endRemoveRows();
+}
+
+void MainWindow::retrieveCurrentCalorie()
+{
+    ifstream inFile;
+
+    inFile.open("currentCalorieSave.txt");
+
+    if(inFile.fail())
+    {
+        cout << "Failed to open file for reading." << endl;
+        return;
+    }
+
+    inFile >> currentCalorieCount;
+
+    inFile.close();
+}
+
+void MainWindow::updateCurrentCalorie()
+{
+    ofstream outFile;
+
+    outFile.open("currentCalorieSave.txt");
+
+    if(outFile.fail())
+    {
+        cout << "Failed to open file for writing." << endl;
+        return;
+    }
+
+    outFile << currentCalorieCount;
+
+    outFile.close();
 }

@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <vector>
-#include <string>
 #include <QMainWindow>
 #include <QModelIndex>
 #include <QListWidget>
@@ -39,6 +38,8 @@ public:
     void saveFoodDate();
     void removeDate();
 
+    void retrieveCurrentCalorie();
+    void updateCurrentCalorie();
 
     void addCalorieCount();
     void subtractCalorieCount();

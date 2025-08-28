@@ -1,8 +1,6 @@
 #ifndef FOODITEMS_H
 #define FOODITEMS_H
-
 #include <string>
-#include <vector>
 
 using namespace std;
 
