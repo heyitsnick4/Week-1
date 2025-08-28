@@ -36,23 +36,23 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::retrieveFileDate()
 {
-    fstream inFile;
+    ifstream inDFile;
 
-    inFile.open("calorieDayTracker.txt");
+    inDFile.open("calorieDayTracker.txt");
 
-    if(inFile.fail())
+    if(inDFile.fail())
     {
         cout << "Failed to open file for reading." << endl;
         return;
     }
 
     DailyTracker day;
-    while (inFile >> day.date >> day.calorieCount) {
+    while (inDFile >> day.date >> day.calorieCount) {
         cout << "Read daily entry: " << day.date << " " << day.calorieCount << endl; // ← DEBUG
         dailyItems.push_back(day);
     }
 
-    inFile.close();
+    inDFile.close();
 }
 
 void MainWindow::retrieveFileFood()
@@ -76,7 +76,7 @@ void MainWindow::retrieveFileFood()
     inFile.close();
 }
 
-void MainWindow::updateFile()
+void MainWindow::updateFileFood()
 {
     ofstream outFile;
 
@@ -91,6 +91,26 @@ void MainWindow::updateFile()
     for (auto &item : foodItems)
     {
         outFile << item.name << " " << item.calories << endl;
+    }
+
+    outFile.close();
+}
+
+void MainWindow::updateFileDate()
+{
+    ofstream outFile;
+
+    outFile.open("calorieDayTracker.txt");
+
+    if(outFile.fail())
+    {
+        cout << "Failed to open file for writing." << endl;
+        return;
+    }
+
+    for (auto &item : dailyItems)
+    {
+        outFile << item.date << " " << item.calorieCount << endl;
     }
 
     outFile.close();
@@ -119,7 +139,7 @@ void MainWindow::saveFoodItem() {
     foodItems.push_back(item);
     foodModel->addFoodItem(item);
 
-    updateFile();
+    updateFileDate();
 
     ui->lineEditName->clear();
     ui->lineEditCalories->clear();
@@ -144,7 +164,7 @@ void MainWindow::removeFoodItem()
 
     foodModel->removeItemAt(row);
 
-    updateFile();
+    updateFileDate();
 }
 
 void FoodItemModel::removeItemAt(int row) {

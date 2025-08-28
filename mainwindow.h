@@ -40,9 +40,10 @@ public:
 
     void retrieveFileDate();
     void retrieveFileFood();
-    void updateFile();
+    void updateFileFood();
     void saveFoodItem();
     void removeFoodItem();
+    void updateFileDate();
 
     void addCalorieCount();
     void subtractCalorieCount();
